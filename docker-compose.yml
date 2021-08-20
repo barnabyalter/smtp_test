@@ -1,0 +1,33 @@
+version: "3.8"
+
+x-default-volumes: &default-volumes
+  volumes:
+    - .:/app
+
+x-smtp-environment: &smtp-environment
+  env_file: .env
+  # environment:
+  #   SMTP_SERVER: 
+  #   SMTP_DOMAIN: 
+  #   SMTP_USER: 
+  #   SMTP_PASSWORD: 
+  #   SMTP_PORT: 
+  #   SMTP_FROM_EMAIL: 
+  #   SMTP_TO_EMAIL:
+
+services:
+  python:
+    image: smtp_test_py
+    build: 
+      context: .
+      dockerfile: Dockerfile.python
+    <<: *smtp-environment
+    #<<: *default-volumes
+  
+  perl:
+    image: smtp_test_perl
+    build:
+      context: .
+      dockerfile: Dockerfile.perl
+    <<: *smtp-environment
+    #<<: *default-volumes

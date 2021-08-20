@@ -1,0 +1,11 @@
+FROM python:3-slim
+
+RUN sed -i "s|DEFAULT@SECLEVEL=2|#DEFAULT@SECLEVEL=2|g" /etc/ssl/openssl.cnf
+RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1.0/' /etc/ssl/openssl.cnf
+
+WORKDIR /app
+
+ADD demo.py .
+
+ENTRYPOINT ["python"]
+CMD ["demo.py"]

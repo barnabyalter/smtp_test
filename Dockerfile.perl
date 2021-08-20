@@ -1,9 +1,16 @@
 FROM perl:5.32.1
 
+ENV PERL_MM_USE_DEFAULT 1
+
+RUN apt-get update -qq && apt-get install -y \
+      ca-certificates
+
+RUN cpan IO::Socket::SSL
+RUN cpan Net::SMTP 
+RUN cpan Authen::SASL
+
 RUN sed -i "s|DEFAULT@SECLEVEL=2|#DEFAULT@SECLEVEL=2|g" /etc/ssl/openssl.cnf
 RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1.0/' /etc/ssl/openssl.cnf
-
-RUN cpan Net::SMTP Authen::SASL
 
 WORKDIR /app
 ADD demo.pl .

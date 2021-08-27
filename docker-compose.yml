@@ -29,5 +29,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.perl
+    # entrypoint: ["sh"]
     <<: *smtp-environment
     #<<: *default-volumes
+    

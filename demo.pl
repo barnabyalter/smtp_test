@@ -18,13 +18,12 @@ my $smtp = Net::SMTP->new(
         SSL => 0, 
         Timeout => 30,
         Debug => 1,
-        Hello => $smtpdomain,
         SendHello => 0
 );
 
-$smtp->hello($smtpdomain);
+$smtp->hello();
 $smtp->starttls();
-$smtp->hello($smtpdomain);
+$smtp->hello();
 $smtp->auth($smtpuser, $smtppass);
 $smtp->mail($from);
 if ($smtp->to($sendto)) {
